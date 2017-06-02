@@ -41,7 +41,14 @@ The deploy script logs into the router and deploys the script
 
 ## Google Docs
 
-There is a Google Apps script linked to the sheet, that will trigger a travis build whenever the sheet is edited.
+There is a Google Apps script linked to the sheet, the sheet looks something like this - extra columns are ignored
+
+| Timestamp           | Full Name | DNS                  | MAC               | Computer | Connection    | IP       | Name |
+|---------------------|-----------|----------------------|-------------------|----------|---------------|----------|------|
+| 10/10/2016 09:00:00 | Fire      | fire.ekreative.com   | 00:25:22:98:a4:64 |          | Switch-second | 10.0.1.2 | fire |
+| 10/10/2016 09:00:00 | Docker    | docker.ekreative.com |                   |          |               | 10.0.1.2 |      |
+
+[Add a button](https://stackoverflow.com/a/6966272/859027) to sheet to trigger the script
 
 ```
 function trigger() {
