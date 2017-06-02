@@ -1,5 +1,7 @@
 #!/bin/bash
 set -e
+test $TRAVIS_BRANCH = "master"
+test $TRAVIS_PULL_REQUEST = "false"
 eval $(ssh-agent -s)
 openssl aes-256-cbc -K $encrypted_f5a3225ce721_key -iv $encrypted_f5a3225ce721_iv -in fire.pem.enc -out fire.pem -d
 chmod 0400 fire.pem
