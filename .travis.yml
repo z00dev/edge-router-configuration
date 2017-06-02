@@ -12,4 +12,6 @@ script:
 - scripts/build.sh
 
 after_success:
-- test $TRAVIS_BRANCH = "master" && scripts/deploy.sh
+- openssl aes-256-cbc -K $encrypted_f5a3225ce721_key -iv $encrypted_f5a3225ce721_iv -in fire.pem.enc -out fire.pem -d
+- chmod 0400 fire.pem
+- scripts/deploy.sh
