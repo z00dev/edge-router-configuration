@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+set -x
 test $TRAVIS_BRANCH = "master"
 test $TRAVIS_PULL_REQUEST = "false"
 eval $(ssh-agent -s)
