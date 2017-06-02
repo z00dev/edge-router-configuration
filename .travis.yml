@@ -1,7 +1,21 @@
 language: php
 php: 7.1
-
+env:
+  global:
+    - secure: "C+tr9HHAjnvgz0ixGHmnTWskjfnbtFMmGeSyKNDJPncRCNtRrSYyE0vNuu4Ckhhi1RjtaUyttuhOWgJ31UQSMdIcL+vJU8ixdonWiT9ag3G1wJIOSc38Qzwn4ouotJdJlSugjbkLJTcOwORPjtCCjPuMpv91C10pUhbhXD8MdmQkHc+D9eoQCTrby+jwkQohebPjSmq/4Z2MRYowYrJyCJAMFy8CEtNi46A8IAj/rkDatkIKVrBbQVOorZ7UlBLUKDtfFGLUeGo8ol8lXE8VuIxvbvuDL6UVDwbhJm9CxT70oE1GGrl15pm1GdUAYyE3yKiasLtIzc2SKYN9MSCLtjqT2yscRiAbaE9KlRW7lRNgsLMVxFiO00nCp3Fje4j8sAXXL4xt8+DR5sklJcrwirB8gZpvF3MUpg+wiJd4XaQUc15QQqck1mQPIUetaip0Pz2Hjl1QPUcr/AA7iSvvYCSn91gqmnsR4R4Kk0qmxxQqoC2PO4Oab5uNXZauBgfMyW2q4HoF3aTGV28KjkgNXXZSkBSbliZnb2jLfINg/fr99hBVABSnr0es3rnK7mvxpPxfyekYE+tADlIfvMZqzjGovZKICcmfQPJXceDD2Q4ozYQqLB/SSEerlqL12ItQorXbPb0c3sO3FkQGDsRawgJnRl4slKaNkonb7CaLMQw="
+addons:
+  ssh_known_hosts: fire.ekreative.com
 script:
-  - mkdir build
-  - php dns.php form.csv > build/dns.sh
-  - php dhcp.php form.csv > build/dhcp.sh
+- mkdir build
+- php dns.php "$CSV_URL" > build/dns.sh
+- php dhcp.php "$CSV_URL" > build/dhcp.sh
+- eval $(ssh-agent -s)
+- openssl aes-256-cbc -K $encrypted_f5a3225ce721_key -iv $encrypted_f5a3225ce721_iv
+  -in fire.pem.enc -out fire.pem -d
+- chmod 0400 fire.pem
+- ssh-add fire.pem
+- ssh mcfedr@fire.ekreative.com ssh-keyscan -t $TRAVIS_SSH_KEY_TYPES -H edge.ekreative.com 2>&1 | tee -a $HOME/.ssh/known_hosts
+- ssh -o ProxyCommand='ssh -q mcfedr@fire.ekreative.com nc -q0 %h %p' admin@edge.ekreative.com
+  < build/dhcp.sh
+- ssh -o ProxyCommand='ssh -q mcfedr@fire.ekreative.com nc -q0 %h %p' admin@edge.ekreative.com
+  < build/dns.sh
