@@ -1,0 +1,7 @@
+language: php
+php: 7.1
+
+script:
+  - mkdir build
+  - php dns.php form.csv > build/dns.sh
+  - php dhcp.php form.csv > build/dhcp.sh
