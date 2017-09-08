@@ -22,4 +22,5 @@ set service dns forwarding options "address=/<?=$data[$dnsCol]?>/<?=$data[$ipCol
     }
 }
 ?>
+compare
 commit

@@ -62,4 +62,5 @@ set service dhcp-server shared-network-name <?=$subnetNames[$cidr]?> subnet <?=$
     }
 }
 ?>
+compare
 commit
