@@ -14,7 +14,8 @@ $nameCol = $headers['Name'];
 $subnetNames = [
     '10.0.1.0/24' => 'LAN',
     '10.0.3.0/24' => 'LAN-extension',
-    '10.0.4.0/23' => 'WIFI'
+    '10.0.4.0/23' => 'WIFI',
+    '10.0.20.0/24' => 'lan-office-2',
 ];
 
 function cidrMatch(string $ip, string $cidr): bool {
